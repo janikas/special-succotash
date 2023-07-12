@@ -1,1 +1,1 @@
-SELECT 'test' as name
+SELECT 'test_1' as name
