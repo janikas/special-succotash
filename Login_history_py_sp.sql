@@ -22,7 +22,7 @@ def main(session: snowpark.Session, sf_user):
     order by event_timestamp desc"""
     res = run_sync_sql(session, sql2run, return_type=2)
 
-    # Return value will appear in the Results tab.
+    # Return value will appear in the Results table.
     return res
 
 def run_sync_sql(session, sql2run, return_type=1):
