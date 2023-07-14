@@ -1,5 +1,8 @@
-use role sysgen;
-create or replace procedure gh.cntl.login_history(sf_user string)
+-- Change Role inside VS Code
+Use role sysgen;
+
+-- Design and Implement Two Stored Procedures to Compile User Login History: A Tool for Administrators and Users to Troubleshoot Access Issues
+Create or replace procedure gh.cntl.login_history(sf_user string)
     returns Table()
     language python
     runtime_version = 3.8
@@ -51,7 +54,7 @@ def run_sync_sql(session, sql2run, return_type=1):
 $$;
 
 
-create or replace procedure gh.cntl.login_history()
+Create or replace procedure gh.cntl.login_history()
     returns Table()
     language python
     runtime_version = 3.8
@@ -103,20 +106,34 @@ def run_sync_sql(session, sql2run, return_type=1):
         print(f'The query failed with an error {e.error_code} {e.message}\n\tSee Query_ID: {e.sfqid} for more details\n')
 $$;
 
--- Grant access to the login_history SPs to role public
+
+-- Grant access to the 'public' role for accessing the stored procedures (SPs) associated with 'login_history'
 grant usage on database gh to role public;
 grant usage on schema gh.cntl to role public;
 GRANT USAGE ON PROCEDURE gh.cntl.login_history(string) TO ROLE public;
 GRANT USAGE ON PROCEDURE gh.cntl.login_history() TO ROLE public;
 
 
--- Test the two SPs
+-- Validate Applied Grants using 'SHOW' Commands to Confirm the Successful Application of Grants
+Show grants on schema gh.cntl;
+Show grants on procedure gh.cntl.login_history(string);
+Show grants on procedure gh.cntl.login_history();
+
+
+-- Validate your current user and secondary roles
+Select 
+    current_user() as current_user,
+    current_secondary_roles() as secondary_roles;
+
+
+-- Test the two SPs using the SecurityAdmin role
 use role securityadmin;
 call gh.cntl.login_history();
 call gh.cntl.login_history('rhathaway');
 call gh.cntl.login_history('jpranckevicius');
 
--- First run the code below with "use secondary roles" turned off & then run it with it turned on to show the change
+
+-- To demonstrate the difference, initially execute the following code with the "Use Secondary Roles" feature disabled. Subsequently, rerun the same code, this time with the "Use Secondary Roles" feature enabled. This sequence will illustrate the change in the code execution process when the mentioned feature is toggled.
 use role public;
 call gh.cntl.login_history();
 call gh.cntl.login_history('rhathaway');
