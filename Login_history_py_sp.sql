@@ -112,11 +112,12 @@ GRANT USAGE ON PROCEDURE gh.cntl.login_history() TO ROLE public;
 
 -- Test the two SPs
 use role securityadmin;
-call gh.cntl.login_history('ghillam');
+call gh.cntl.login_history();
+call gh.cntl.login_history('rhathaway');
 call gh.cntl.login_history('jpranckevicius');
 
 -- First run the code below with "use secondary roles" turned off & then run it with it turned on to show the change
 use role public;
 call gh.cntl.login_history();
-call gh.cntl.login_history('ghillam');
+call gh.cntl.login_history('rhathaway');
 call gh.cntl.login_history('jpranckevicius');
