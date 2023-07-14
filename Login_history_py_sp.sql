@@ -103,7 +103,7 @@ def run_sync_sql(session, sql2run, return_type=1):
         print(f'The query failed with an error {e.error_code} {e.message}\n\tSee Query_ID: {e.sfqid} for more details\n')
 $$;
 
--- Grant access to login_history SPs to role public
+-- Grant access to the login_history SPs to role public
 grant usage on database gh to role public;
 grant usage on schema gh.cntl to role public;
 GRANT USAGE ON PROCEDURE gh.cntl.login_history(string) TO ROLE public;
