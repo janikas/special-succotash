@@ -1,1 +1,0 @@
-SELECT 'test_1' as name
