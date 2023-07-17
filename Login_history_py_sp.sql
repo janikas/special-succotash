@@ -16,7 +16,7 @@ import snowflake.snowpark as snowpark
 from snowflake.snowpark.functions import col
 
 def main(session: snowpark.Session, sf_user): 
-    sql2run = f"""select EVENT_TIMESTAMP,
+    sql2run = f"""select EVENT_TIMESTAMP as ,
     EVENT_TYPE||' as '||USER_NAME||' from IP '||CLIENT_IP as User_IP,
     REPORTED_CLIENT_TYPE||' - '||REPORTED_CLIENT_VERSION||' - '||FIRST_AUTHENTICATION_FACTOR as Client_ver_auth,
     to_varchar(IS_SUCCESS)||' - '||ifnull(to_varchar(ERROR_CODE),'')||' - '||ifnull(ERROR_MESSAGE,'') as login_result
