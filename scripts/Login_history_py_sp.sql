@@ -128,6 +128,8 @@ Select
 
 -- Test the two SPs using the SecurityAdmin role
 use role securityadmin;
+use database gh;
+use warehouse workshop_wh;
 call gh.cntl.login_history();
 call gh.cntl.login_history('rhathaway');
 call gh.cntl.login_history('jpranckevicius');
