@@ -1,11 +1,5 @@
 
-SELECT 'a@acom' as email, cntl.fn_is_valid_email(email) as is_email_valid ;
-
-create database ajp;
-create schema cntl;
-create schema landing;
-create schema nice;
-
+-- validation script for email
 create or replace function ajp.cntl.fn_is_valid_email(email string)
     returns boolean
     language python
@@ -24,15 +18,18 @@ def isValid(email):
         return False
 $$;
 
+-- functional test for the validation email
+SELECT 'a@acom' as email, cntl.fn_is_valid_email(email) as is_email_valid ;
+
+
+-- we need stage to upload test file, vscode can create one without sql but it would be temporary (dropped once session ends)
 create or replace stage landing_stage
 file_format = (type = 'CSV' field_delimiter = ',' SKIP_HEADER = 1, FIELD_OPTIONALLY_ENCLOSED_BY = '"');
 
-LIST @LANDING.landing_stage
+-- do we have file uploaded?
+LIST @LANDING.landing_stage;
 
-
-        
-
-;
+-- one way to load for demonstration purposes only (not recommended for prod)
 CREATE OR REPLACE TABLE NICE.EMAIL_TARGET
 AS
 SELECT t.$1 as email, t.$2 as user_name, t.$3 as user_address, t.$4 as is_active, cntl.fn_is_valid_email(email) as is_valid_email
@@ -40,7 +37,7 @@ FROM @LANDING.landing_stage/email_sample_list.csv t
 ;
 
 
-
+-- see if it worked and start emailing
 SELECT *
 FROM nice.email_target
 WHERE is_valid_email
@@ -53,6 +50,7 @@ FROM ADMIN.ACCOUNT_USAGE.ACCESS_HISTORY
 LIMIT 100
 ;
 
+-- standard way to load
 -- DROP TABLE EMAIL_TARGET;
 
 create or replace TABLE NICE.EMAIL_TARGET (
