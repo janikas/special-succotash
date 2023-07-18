@@ -1,0 +1,55 @@
+{
+    "folders": [
+        {
+            "path": ".."
+        }
+    ],
+    "extensions": {
+        "recommendations": [
+            "snowflake.snowflake-vsc"
+        ]
+    },
+    "settings": {
+     // Show Object Details upon selecting an Snowflake Object autocomplete entry.
+	"snowflake.autocompleteObjectDetails.enabled": false,
+
+	// Enable Public Preview features for the extension
+	"snowflake.enablePublicPreviewFeatures": false,
+
+	// Specifies delimiter for columns
+	//  - Comma: Uses commas as delimiters.
+	//  - Tab: Uses tabs as delimiters.
+	"snowflake.exportCSV.delimiter.option": "Comma",
+
+	// Enable inclusion of header row in exported CSV file.
+	"snowflake.exportCSV.header.enabled": true,
+
+	// Enable inclusion of empty rows in exported CSV file.
+	"snowflake.exportCSV.includeEmptyRows.enabled": false,
+
+	// Enable double quotes around cell values in exported CSV file.
+	"snowflake.exportCSV.quotes.enabled": true,
+
+	// Enable background highlight on the current SQL statement.
+	"snowflake.highlightQuery.enabled": true,
+
+	// Specifies the number of queries shown in history. Showing more queries may affect performance.
+	"snowflake.queryHistory.itemLimit": 1000,
+
+	// When true: Snowflake keeps the session active indefinitely as long as the connection is active, even if there is no activity from the user. 
+	// 
+	// When false: The user must log in again after four hours of inactivity.
+	"snowflake.setClientSessionKeepAlive.enabled": true,
+
+	// Enable a clickable execution action above each statement.
+	"snowflake.showExecuteAboveStatement.enabled": true,
+
+	// If set, [connection configuration](https://docs.snowflake.com/en/user-guide/snowsql-config) will be loaded from this file.  
+	// 
+	// _NOTE: Only connection configuration values will be loaded, other configuration values will be ignored.._
+	"snowflake.snowsqlConfigPath": "",
+
+	// Traces the communication between VS Code and the Snowflake SQL language server.
+	"snowflakeSqlLanguageServer.trace.server": "off",
+    }
+}
